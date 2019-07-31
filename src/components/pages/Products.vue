@@ -32,7 +32,7 @@
         </tr>
       </tbody>
     </table>
-    <nav aria-label="Page navigation example">
+    <!-- <nav aria-label="Page navigation example">
       <ul class="pagination">
         <li class="page-item" :class="{'disabled':!pagination.has_pre}"
           @click="getProducts(pagination.current_page - 1)">
@@ -53,7 +53,8 @@
           </a>
         </li>
       </ul>
-    </nav>
+    </nav> -->
+    <Pagination :pagination="pagination" @getPageProducts="getProducts"></Pagination>
     <!-- Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -81,9 +82,7 @@
                   </label>
                   <input type="file" id="customFile" class="form-control" ref="files" @change="uploadFile">
                 </div>
-                <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  :src="tempProduct.imageUrl" class="img-fluid" alt="">
+                <img :src="tempProduct.imageUrl" class="img-fluid" alt="">
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -174,7 +173,7 @@
 
 <script>
   import $ from 'jquery';
-
+  import Pagination from './Pagination'
   export default {
     data() {
       return {
@@ -187,6 +186,9 @@
           fileUploading: false
         }
       }
+    },
+    components: {
+      Pagination,
     },
     methods: {
       getProducts(page = 1) {
