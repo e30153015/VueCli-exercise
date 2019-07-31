@@ -8,13 +8,14 @@ import 'bootstrap';
 import App from './App.vue';
 import router from './router';
 import './bus';
+import currencyFilter from './filters/currency';
 import { nextTick } from 'q';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios)
 
 Vue.component('loading', Loading)
-
+Vue.filter('currency', currencyFilter);
 axios.defaults.withCredentials = true;
 
 new Vue({
