@@ -34,16 +34,19 @@
     </table>
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item" :class="{'disabled':!pagination.has_pre}" @click="getProducts(pagination.current_page - 1)">
+        <li class="page-item" :class="{'disabled':!pagination.has_pre}"
+          @click="getProducts(pagination.current_page - 1)">
           <a class="page-link" href="#" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
         </li>
-        <li class="page-item" v-for="page in pagination.total_pages" :key="page" :class="{'active':pagination.current_page === page }" @click="getProducts(page)">
+        <li class="page-item" v-for="page in pagination.total_pages" :key="page"
+          :class="{'active':pagination.current_page === page }" @click="getProducts(page)">
           <a class="page-link" href="#">{{page}}</a>
         </li>
-        <li class="page-item" :class="{'disabled':!pagination.has_next}" @click="getProducts(pagination.current_page + 1)">
+        <li class="page-item" :class="{'disabled':!pagination.has_next}"
+          @click="getProducts(pagination.current_page + 1)">
           <a class="page-link" href="#" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
@@ -52,7 +55,8 @@
       </ul>
     </nav>
     <!-- Modal -->
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
@@ -68,7 +72,8 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
-                  <input v-model="tempProduct.imageUrl" type="text" class="form-control" id="image" placeholder="請輸入圖片連結">
+                  <input v-model="tempProduct.imageUrl" type="text" class="form-control" id="image"
+                    placeholder="請輸入圖片連結">
                 </div>
                 <div class="form-group">
                   <label for="customFile">或 上傳圖片
@@ -76,7 +81,9 @@
                   </label>
                   <input type="file" id="customFile" class="form-control" ref="files" @change="uploadFile">
                 </div>
-                <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80" :src="tempProduct.imageUrl" class="img-fluid" alt="">
+                <img
+                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
+                  :src="tempProduct.imageUrl" class="img-fluid" alt="">
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -87,7 +94,8 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="category">分類</label>
-                    <input type="text" class="form-control" id="category" v-model="tempProduct.category" placeholder="請輸入分類">
+                    <input type="text" class="form-control" id="category" v-model="tempProduct.category"
+                      placeholder="請輸入分類">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">單位</label>
@@ -98,26 +106,31 @@
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="origin_price">原價</label>
-                    <input type="number" class="form-control" id="origin_price" v-model="tempProduct.origin_price" placeholder="請輸入原價">
+                    <input type="number" class="form-control" id="origin_price" v-model="tempProduct.origin_price"
+                      placeholder="請輸入原價">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="price">售價</label>
-                    <input type="number" class="form-control" id="price" v-model="tempProduct.price" placeholder="請輸入售價">
+                    <input type="number" class="form-control" id="price" v-model="tempProduct.price"
+                      placeholder="請輸入售價">
                   </div>
                 </div>
                 <hr>
 
                 <div class="form-group">
                   <label for="description">產品描述</label>
-                  <textarea type="text" class="form-control" id="description" v-model="tempProduct.description" placeholder="請輸入產品描述"></textarea>
+                  <textarea type="text" class="form-control" id="description" v-model="tempProduct.description"
+                    placeholder="請輸入產品描述"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="content">說明內容</label>
-                  <textarea type="text" class="form-control" id="content" v-model="tempProduct.content" placeholder="請輸入產品說明內容"></textarea>
+                  <textarea type="text" class="form-control" id="content" v-model="tempProduct.content"
+                    placeholder="請輸入產品說明內容"></textarea>
                 </div>
                 <div class="form-group">
                   <div class="form-check">
-                    <input v-model="tempProduct.is_enabled" :true-value="1" :false-value="0" class="form-check-input" type="checkbox" id="is_enabled">
+                    <input v-model="tempProduct.is_enabled" :true-value="1" :false-value="0" class="form-check-input"
+                      type="checkbox" id="is_enabled">
                     <label class="form-check-label" for="is_enabled">
                       是否啟用
                     </label>
@@ -133,7 +146,8 @@
         </div>
       </div>
     </div>
-    <div class="modal fade" id="delProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="delProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content border-0">
           <div class="modal-header bg-danger text-white">
@@ -165,7 +179,7 @@
     data() {
       return {
         products: [],
-        pagination:{}, 
+        pagination: {},
         tempProduct: {},
         isNew: false,
         isLoading: false,
@@ -175,7 +189,7 @@
       }
     },
     methods: {
-      getProducts(page=1) {   
+      getProducts(page = 1) {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
         const vm = this;
         vm.isLoading = true;
@@ -253,12 +267,15 @@
             // console.log(vm.tempProduct);
             vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
             console.log(vm.tempProduct);
+          } else {
+            this.$bus.$emit('message:push', response.data.message, 'danger')
           }
         })
       }
     },
     created() {
       this.getProducts();
+
     }
 
   }

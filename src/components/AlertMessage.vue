@@ -42,14 +42,14 @@
       },
     },
     created() {
-      // const vm = this;
-
+      const vm = this;
+      // this.updateMessage('TEST', 'primary')
       // 自定義名稱 'messsage:push'
       // message: 傳入參數
       // status: 樣式，預設值為 warning
-      // vm.$bus.$on('message:push', (message, status = 'warning') => {
-      //   vm.updateMessage(message, status);
-      // });
+      vm.$bus.$on('message:push', (message, status = 'warning') => {
+        vm.updateMessage(message, status);
+      });
       // vm.$bus.$emit('message:push');
     },
   };
