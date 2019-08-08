@@ -28,7 +28,7 @@
               <span data-feather="file-text"></span>
 
             </a>
-            <router-link class="nav-link" to="/admin/products">
+            <router-link class="nav-link" to="/customer_order">
               <i class="fas fa-shopping-cart"></i>
               模擬訂單
             </router-link>

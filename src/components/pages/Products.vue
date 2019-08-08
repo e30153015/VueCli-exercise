@@ -10,8 +10,8 @@
       <thead>
         <th width="120">分類</th>
         <th>產品名稱</th>
-        <th width="120">原價</th>
-        <th width="120">售價</th>
+        <th width="120" class="text-right">原價</th>
+        <th width="120" class="text-right">售價</th>
         <th width="100">是否啟用</th>
         <th width="120">編輯</th>
       </thead>
@@ -194,7 +194,7 @@
     },
     methods: {
       getProducts(page = 1) {
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products?page=${page}`;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
         const vm = this;
         vm.isLoading = true;
         this.$http.get(api).then((response) => {

@@ -5,7 +5,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a @click.prevent="signout" class="nav-link" href="#">Sign out</a>
         </li>
       </ul>
     </nav>
@@ -14,6 +14,18 @@
 
 <script>
   export default {
-
+    name: 'Navbar',
+    methods: {
+      signout() {
+        const vm = this;
+        const url = `${process.env.VUE_APP_APIPATH}/logout`;
+        this.$http.post(url).then((response) => {
+          console.log(response.data);
+          if (response.data.success) {
+            vm.$router.push('/siginin');
+          }
+        });
+      },
+    },
   }
 </script>
