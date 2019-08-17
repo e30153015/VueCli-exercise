@@ -33,6 +33,28 @@
         </div>
       </div>
     </div>
+    <div class="container">
+      <div class="row justify-content-center">
+        <table class="table w-50">
+          <thead>
+            <tr>
+              <th width="40"></th>
+              <th width="120">品名</th>
+              <th width="60">數量</th>
+              <th width="60">單價</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>John</td>
+              <td>Doe</td>
+              <td>Doe</td>
+              <td>john@example.com</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <!-- 查看更多 modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -71,7 +93,7 @@
               小計
               <strong>{{ product.num * product.price }}</strong> 元
             </div>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" @click="addtoCart(product.id,product.num)">
               <!-- <i class="fas fa-spinner fa-spin" v-if="product.id === status.loadingCartModal"></i> -->
               加到購物車
             </button>
@@ -108,12 +130,13 @@
           vm.products = response.data.products;
         })
       },
+      //取得商品詳情(查看更多)
       getProduct(id) {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
         const vm = this;
         vm.status.loadingItem = id;
         this.$http.get(api).then((response) => {
-          console.log(response.data);
+          console.log(response);
           vm.product = response.data.product;
           $('#productModal').modal('show');
           vm.status.loadingItem = "";
@@ -130,13 +153,25 @@
         this.$http.post(api, {
           data: cart
         }).then((response) => {
-          console.log(response.data);
+          console.log(response);
           vm.status.loadingItem = "";
+          vm.getCart();
+          $('#productModal').modal('hide');
+        })
+      },
+      getCart() {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        const vm = this;
+        vm.isLoading = true;
+        this.$http.get(api).then((response) => {
+          console.log(response.data);
+          vm.isLoading = false
         })
       }
     },
     created() {
       this.getProducts();
+      this.getCart();
     }
   }
 </script>
