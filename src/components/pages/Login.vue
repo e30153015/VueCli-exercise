@@ -16,10 +16,32 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
+    <div class="modal fade" id="loginFail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title" id="exampleModalLabel">
+              <span>錯誤！</span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <strong class="text-danger">{{ errorMsg }}</strong>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">確定</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import $ from 'jquery';
   export default {
     name: 'HelloWorld',
     data() {
@@ -27,7 +49,8 @@
         user: {
           username: '',
           password: '',
-        }
+        },
+        errorMsg: "",
       }
     },
     methods: {
@@ -38,6 +61,9 @@
           console.log(response.data)
           if (response.data.success) {
             vm.$router.push('/admin/products');
+          } else {
+            vm.errorMsg = response.data.message;
+            $('#loginFail').modal('show');
           }
         })
       }
