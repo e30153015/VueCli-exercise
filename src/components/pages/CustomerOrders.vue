@@ -75,7 +75,59 @@
         </div>
       </div>
     </div>
+    <div class="my-5 row justify-content-center">
+      <form class="col-md-6" @submit.prevent="createOrder">
+        <div class="form-group">
+          <label for="useremail">Email</label>
+          <ValidationProvider name="email" rules="required|email">
+            <div slot-scope="{ errors }">
+              <input type="email" class="form-control" name="email" id="useremail" v-model="form.user.email"
+                placeholder="請輸入 Email" required :class="{'is-invalid':errors[0]}">
+              <span class="text-danger" v-if="errors[0]">{{errors[0]}}</span>
+            </div>
+          </ValidationProvider>
+          <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
+          <label for="username">收件人姓名</label>
+          <ValidationProvider name="name" rules="required">
+            <div slot-scope="{ errors }">
+              <input type="text" class="form-control" id="username" v-model="form.user.name" placeholder="輸入姓名" required
+                :class="{'is-invalid':errors[0]}">
+              <p class="text-danger" v-if="errors[0]">{{ errors[0] }}</p>
+            </div>
+          </ValidationProvider>
+        </div>
+        <div class="form-group">
+          <label for="usertel">收件人電話</label>
+          <ValidationProvider name="name" rules="phone|phoneLength">
+            <div slot-scope="{ errors }">
+              <input type="tel" class="form-control" id="usertel" v-model="form.user.tel" placeholder="請輸入電話" required
+                :class="{'is-invalid':errors[0]}">
+              <p class="text-danger" v-if="errors[0]">{{ errors[0] }}</p>
+            </div>
+          </ValidationProvider>
+        </div>
+        <div class="form-group">
+          <label for="useraddress">收件人地址</label>
+          <ValidationProvider name="name" rules="required">
+            <div slot-scope="{ errors }">
+              <input type="text" class="form-control" id="useraddress" v-model="form.user.address" placeholder="請輸入地址"
+                required :class="{'is-invalid':errors[0]}">
+              <p class="text-danger" v-if="errors[0]">地址欄位不得留空</p>
+            </div>
+          </ValidationProvider>
+        </div>
 
+        <div class="form-group">
+          <label for="comment">留言</label>
+          <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
+        </div>
+        <div class="text-right">
+          <button class="btn btn-danger">送出訂單</button>
+        </div>
+      </form>
+    </div>
     <!-- 查看更多 modal -->
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -137,6 +189,15 @@
         cartsData: {},
         status: {
           loadingItem: '',
+        },
+        form: {
+          user: {
+            name: '',
+            email: '',
+            tel: '',
+            address: '',
+          },
+          message: '',
         },
         isLoading: false,
         coupon_code: ''
@@ -214,6 +275,18 @@
         }).then((response) => {
           console.log(response.data)
           vm.getCart();
+          vm.isLoading = false;
+        })
+      },
+      createOrder() {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
+        const vm = this;
+        const order = vm.form;
+        vm.isLoading = true;
+        this.$http.post(api, {
+          data: order
+        }).then((response) => {
+          console.log('訂單已建立', response.data)
           vm.isLoading = false;
         })
       }
